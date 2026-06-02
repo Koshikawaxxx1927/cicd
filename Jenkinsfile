@@ -4,13 +4,22 @@ pipeline {
 
     stages {
 
-        stage('Build') {
-
+        stage('Test') {
             steps {
-                sh './mvnw clean package'
+                sh './mvnw test'
             }
-
         }
 
+        stage('Package') {
+            steps {
+                sh './mvnw package'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t employee-api .'
+            }
+        }
     }
 }
